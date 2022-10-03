@@ -6,6 +6,8 @@ Vous aurez besoin d'une clef pour l'API [adapt.sh](https://adapt.sh), que vous d
 
 Pour l'instant, seul le widget "Medium" est géré.
 
+![widget-medium-screenshot](./widget-medium.jpg)
+
 TODO:
 - [ ] Widget dans d'autres tailles
 - [ ] Support d'autres langues
@@ -20,6 +22,8 @@ The goal of this repo is to add [adapt.sh](https://adapt.sh)'s data to your home
 This requires an adapt.sh API key that you'll have to add to the script.
 
 It currently only supports the "Medium" widget.
+
+![widget-medium-screenshot](./widget-medium.jpg)
 
 TODO:
 - [ ] Other widget sizes
