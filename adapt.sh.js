@@ -2,10 +2,12 @@
 // These must be at the very top of the file. Do not edit.
 // icon-color: blue; icon-glyph: bolt;
 
-const API_TOKEN = ''
+const API_TOKEN = '' // TODO: set your API key
+const LOCATION = '' || 'fr' // Set your location
+const LOCALE = '' || Device.locale() // Set your locale here
 
-async function getForecastFromAPI(location) {
-  const req = new Request(`https://www.adapt.sh/api/v2/forecasts?location=${location || 'fr'}`)
+async function getForecastFromAPI (location) {
+  const req = new Request(`https://www.adapt.sh/api/v2/forecasts?location=${LOCATION}`)
 
   req.headers = {
     'X-AUTH-TOKEN': API_TOKEN
@@ -44,7 +46,7 @@ const levelLabel = {
   }
 }
 
-function handleAPIResponse(apiResponse) {
+function handleAPIResponse (apiResponse) {
   const forecast = {
     soon: [],
     nextLow: {}
@@ -62,7 +64,7 @@ function handleAPIResponse(apiResponse) {
   return forecast
 }
 
-function createWidget(forecast) {
+function createWidget (forecast) {
   const widget = new ListWidget()
 
   const global = widget.addStack()
@@ -111,7 +113,7 @@ function createWidget(forecast) {
     const d = forecast.nextLow.start
     const df = new DateFormatter()
     df.dateFormat = 'E dd à HH'
-    df.locale = 'fr' // TODO
+    df.locale = LOCALE
 
     const date = cleanStack.addText(`${df.string(d)} h`)
     date.font = Font.lightSystemFont(16)
@@ -169,7 +171,7 @@ function createWidget(forecast) {
   return widget
 }
 
-function createSymbol(symbol, fontSize) {
+function createSymbol (symbol, fontSize) {
   const s = SFSymbol.named(symbol.symbol)
   s.applyFont(Font.systemFont(fontSize))
 
@@ -187,18 +189,17 @@ const colours = {
 const startColour = Color.dynamic(new Color(colours.startColour), new Color(colours.darkStartColour))
 const endColour = Color.dynamic(new Color(colours.endColour), new Color(colours.darkEndColour))
 
-function setColours(widget) {
+function setColours (widget) {
   const gradient = new LinearGradient()
   gradient.colors = [startColour, endColour]
   gradient.locations = [0, 1]
   widget.backgroundGradient = gradient
 }
 
-
 // Script starts
 
 if (!API_TOKEN) {
-  throw "missing API key"
+  throw 'missing API key'
 }
 
 const apiResponse = await getForecastFromAPI(args.widgetParameter)
